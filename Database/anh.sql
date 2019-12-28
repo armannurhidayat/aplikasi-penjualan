@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 02, 2019 at 08:41 AM
+-- Generation Time: Dec 28, 2019 at 03:19 AM
 -- Server version: 5.7.24
--- PHP Version: 7.2.11
+-- PHP Version: 7.2.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -45,7 +45,8 @@ INSERT INTO `barang` (`id_barang`, `nama_barang`, `harga_barang`, `stock_barang`
 (5, 'komputer', '1000000', 2, '2019-10-01 12:42:19', '2019-10-01 15:26:05'),
 (6, 'mouse', '500000', 5, '2019-10-01 12:43:22', NULL),
 (7, 'keyboard', '100000', 5, '2019-10-01 12:43:22', NULL),
-(8, 'laptop', '1500000', 5, '2019-10-01 12:43:44', NULL);
+(8, 'laptop', '1500000', 5, '2019-10-01 12:43:44', NULL),
+(9, 'COBAAN', '90000', 0, '2019-12-28 10:02:08', '2019-12-28 10:03:18');
 
 -- --------------------------------------------------------
 
@@ -94,7 +95,21 @@ INSERT INTO `transaksi` (`id_transaksi`, `no_struk`, `id_pelanggan`, `id_barang`
 (10, 'TRX-20191002006', 3, 7, '2019-02-10 00:00:00', 1, 600000),
 (11, 'TRX-20191002006', 3, 6, '2019-02-10 00:00:00', 1, 600000),
 (12, 'TRX-20191002007', 4, 8, '2019-02-10 00:00:00', 1, 2000000),
-(13, 'TRX-20191002007', 4, 6, '2019-02-10 00:00:00', 1, 2000000);
+(13, 'TRX-20191002007', 4, 6, '2019-02-10 00:00:00', 1, 2000000),
+(14, 'TRX-20191228008', 4, 8, '2019-12-28 00:00:00', 5, 1500000),
+(15, 'DSDSA', 3, 9, '2019-12-28 10:02:38', 10, 200),
+(16, 'FSFA', 3, 9, '2019-12-28 10:03:18', 90, 90000);
+
+--
+-- Triggers `transaksi`
+--
+DELIMITER $$
+CREATE TRIGGER `penjualan_barang` AFTER INSERT ON `transaksi` FOR EACH ROW BEGIN
+	UPDATE barang SET stock_barang=stock_barang-NEW.jumlah
+    WHERE id_barang = NEW.id_barang;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -159,7 +174,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
@@ -171,7 +186,7 @@ ALTER TABLE `pelanggan`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `user`

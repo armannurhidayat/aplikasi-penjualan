@@ -34,7 +34,7 @@
         <div class="col-md-3" style="margin-top: 10px">
           <div class="form-group">
             <label for="tanggal">Tanggal Transaksi</label>
-            <input type="date" name="tanggal" id="tanggal" min="<?= date('Y-d-m') ?>" value="<?= date('Y-d-m') ?>" class="form-control">
+            <input type="date" name="tanggal" id="tanggal" min="<?= date('Y-m-d') ?>" value="<?= date('Y-m-d') ?>" class="form-control">
           </div>
         </div>
 
